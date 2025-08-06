@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tập văn cúng gia tiên - Cẩm nang tâm linh truyền thống</title>
+    <meta name="description" content="Tập văn cúng gia tiên - Bộ sưu tập đầy đủ các bài văn khấn, lời cúng, nghi thức truyền thống để thờ cúng tổ tiên một cách trang trọng và đúng đắn.">
+    <meta name="keywords" content="tập văn cúng gia tiên, văn khấn tổ tiên, lời cúng truyền thống, nghi thức thờ cúng, tâm linh">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fffefb;
+            color: #333;
+        }
+        .bg-gradient-header {
+             background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+        }
+        .bg-gradient-section {
+             background: linear-gradient(135deg, #fffefb 0%, #fef3c7 100%);
+        }
+        .book-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #b45309;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background-color: #92400e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #b45309;
+            border: 1px solid #b45309;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #fef3c7;
+            transform: translateY(-2px);
+        }
+        .feature-icon { color: #b45309; }
+        .combo-price-banner { background: linear-gradient(90deg, #b45309 0%, #f59e0b 100%); }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+        .success-animation { animation: fadeInScale 0.5s ease-in-out; }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .detail-slider-image { max-height: 350px; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .detail-content { display: none; }
+        .detail-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .detail-nav-button { background-color: rgba(180, 83, 9, 0.8); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer; transition: background-color 0.3s ease; position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; }
+        .detail-nav-button:hover { background-color: rgba(146, 64, 14, 1); }
+        .detail-prev { left: 10px; }
+        .detail-next { right: 10px; }
+        @media (max-width: 768px) {
+            .detail-slider-container { flex-direction: column; }
+            .detail-slider-image-wrapper { margin-bottom: 1rem; width: 100%; }
+            .detail-slider-content-wrapper { width: 100%; }
+            .detail-slider-image { max-height: 250px; }
+        }
+        .text-custom-red { color: #dc2626; }
+        .bg-custom-red { background-color: #dc2626; }
+
+        /* Countdown Timer Styles */
+        .countdown-timer span {
+            background-color: rgba(180, 83, 9, 0.1);
+            color: #92400e;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            margin: 0 0.15rem;
+        }
+
+        /* Recent Order Popup Styles */
+        #recent-order-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            transform: translateX(-150%);
+            opacity: 0;
+            max-width: 300px;
+        }
+        #recent-order-popup.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        #recent-order-popup p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        #recent-order-popup .customer-name {
+            font-weight: 600;
+            color: #b45309;
+        }
+         #recent-order-popup .time-ago {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+            display: block;
+        }
+         #recent-order-popup .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #aaa;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+         }
+         #recent-order-popup .close-btn:hover {
+            color: #333;
+         }
+
+        /* Testimonial Image Styles */
+        .testimonial-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #b45309;
+            margin-right: 1rem;
+        }
+
+        .traditional-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fbbf24' fill-opacity='0.1'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zM10 10c0-11.046 8.954-20 20-20s20 8.954 20 20-8.954 20-20 20-20-8.954-20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+    </style>
+</head>
+<body class="bg-white">
+    <header class="bg-gradient-header py-10 md:py-16 px-4 traditional-pattern">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="text-center md:text-left">
+                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-amber-900">TẬP VĂN CÚNG GIA TIÊN</h1>
+                 <h2 class="text-xl sm:text-2xl lg:text-3xl font-semibold mb-6 text-amber-800">Cẩm Nang Tâm Linh Truyền Thống</h2>
+                 <p class="text-base md:text-lg text-gray-700 mb-6">Bộ sưu tập đầy đủ các bài văn khấn, lời cúng, nghi thức truyền thống để thờ cúng tổ tiên một cách trang trọng và đúng đắn.</p>
+                 <div class="mb-6 text-center md:text-left">
+                     <p class="text-lg font-semibold text-custom-red mb-2">🔥 Ưu đãi đặc biệt kết thúc sau:</p>
+                     <div id="countdown-timer" class="countdown-timer text-xl md:text-2xl">
+                         <span>00</span>:<span>00</span>:<span>00</span>:<span>00</span>
+                     </div>
+                 </div>
+                 <div class="flex justify-center md:justify-start space-x-4">
+                     <a href="#order-now" class="btn-primary text-base md:text-lg font-bold py-3 px-6 md:px-8 rounded-full">ĐẶT MUA NGAY</a>
+                     <a href="#explore-books" class="btn-secondary text-base md:text-lg font-bold py-3 px-6 md:px-8 rounded-full">XEM CHI TIẾT</a>
+                 </div>
+            </div>
+            <div class="relative text-center">
+                 <img src="https://placehold.co/400x500/fbbf24/92400e?text=T%E1%BA%ADp+V%C4%83n+C%C3%BAng+Gia+Ti%C3%AAn" alt="Tập văn cúng gia tiên" class="rounded-lg shadow-xl mx-auto w-full max-w-md lg:max-w-lg">
+                <div class="absolute top-4 right-4 md:-top-5 md:-right-5 bg-custom-red text-white font-bold py-2 px-4 rounded-full transform rotate-12 shadow-lg animate-pulse">
+                    <p class="text-sm md:text-base">GIẢM SỐC!</p>
+                    <p class="text-xs md:text-sm">Chỉ 199K + FREESHIP</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-16 px-4 bg-gradient-section">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-amber-900">TẠI SAO NÊN SỞ HỮU CUỐN SÁCH NÀY?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center transition duration-300 hover:shadow-xl"> 
+                    <div class="text-5xl feature-icon mb-4 inline-block"> <i class="fas fa-scroll"></i> </div> 
+                    <h3 class="text-xl font-bold mb-3 text-amber-800">Văn Khấn Truyền Thống</h3> 
+                    <p class="text-gray-700">Bộ sưu tập đầy đủ các bài văn khấn cổ truyền được truyền đời từ các thế hệ tổ tiên, chuẩn xác và trang trọng.</p> 
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center transition duration-300 hover:shadow-xl"> 
+                    <div class="text-5xl feature-icon mb-4 inline-block"> <i class="fas fa-hands-praying"></i> </div> 
+                    <h3 class="text-xl font-bold mb-3 text-amber-800">Nghi Thức Đúng Đắn</h3> 
+                    <p class="text-gray-700">Hướng dẫn chi tiết các nghi thức thờ cúng, cách bày biện lễ vật và thời điểm thích hợp cho từng dịp lễ.</p> 
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center transition duration-300 hover:shadow-xl"> 
+                    <div class="text-5xl feature-icon mb-4 inline-block"> <i class="fas fa-home"></i> </div> 
+                    <h3 class="text-xl font-bold mb-3 text-amber-800">Thờ Cúng Gia Đình</h3> 
+                    <p class="text-gray-700">Phù hợp cho mọi gia đình Việt Nam muốn duy trì truyền thống thờ cúng tổ tiên một cách trang nghiêm và ý nghĩa.</p> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="explore-books" class="py-16 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-amber-900">NỘI DUNG CUỐN SÁCH</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div class="book-card bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col"> 
+                    <img src="https://placehold.co/300x400/f59e0b/92400e?text=T%E1%BA%ADp+V%C4%83n+C%C3%BAng" alt="Tập văn cúng gia tiên" class="rounded-md shadow-md mx-auto mb-4 w-full max-w-[250px]"> 
+                    <h3 class="text-xl font-bold mb-2 text-amber-800 text-center">Tập Văn Cúng Gia Tiên</h3> 
+                    <div class="text-center mb-3"> 
+                        <span class="text-lg line-through text-gray-500 mr-2">299.000đ</span> 
+                        <span class="text-2xl font-bold text-custom-red">199.000đ</span> 
+                    </div> 
+                    <p class="text-gray-700 mb-4 text-sm flex-grow">Bộ sưu tập hoàn chỉnh các bài văn khấn, lời cúng truyền thống cho mọi dịp lễ tết, giỗ chạp, cưới xin, nhập trạch...</p> 
+                    <div class="mt-auto flex flex-col sm:flex-row justify-center gap-3"> 
+                        <a href="#book-details" class="btn-secondary text-center py-2 px-4 rounded-full text-sm font-medium">Xem Chi Tiết</a> 
+                        <a href="#order-now" class="btn-primary text-center py-2 px-4 rounded-full text-sm font-medium">Đặt Hàng Ngay</a> 
+                    </div> 
+                </div>
+                
+                <div class="bg-amber-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-amber-900">✨ Đặc điểm nổi bật:</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-amber-600 mt-1 mr-3"></i><span>Hơn 200 bài văn khấn cho mọi dịp lễ</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-amber-600 mt-1 mr-3"></i><span>Hướng dẫn nghi thức bày biện lễ vật</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-amber-600 mt-1 mr-3"></i><span>Lịch âm - cách chọn ngày tốt</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-amber-600 mt-1 mr-3"></i><span>Văn khấn cho từng vùng miền</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-amber-600 mt-1 mr-3"></i><span>Sách in đẹp, bìa cứng, giấy cao cấp</span></li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-white rounded-lg border-l-4 border-amber-500">
+                        <h4 class="font-semibold text-amber-900 mb-2">🎁 Tặng kèm:</h4>
+                        <p class="text-sm text-gray-700">Lịch âm 2024 + Bảng chọn ngày tốt + Hướng dẫn bố trí bàn thờ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-gradient-section">
+        <div class="container mx-auto">
+            <div id="book-details" class="bg-white p-6 md:p-8 rounded-xl shadow-lg scroll-mt-20"> 
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-amber-900 text-center">MỤC LỤC CHI TIẾT</h2> 
+                <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10 detail-slider-container"> 
+                    <div class="w-full md:w-1/2 relative detail-slider-image-wrapper"> 
+                        <img id="book-image" src="https://placehold.co/400x500/fbbf24/92400e?text=T%E1%BA%ADp+V%C4%83n+C%C3%BAng" alt="Chi tiết tập văn cúng" class="detail-slider-image w-full"> 
+                        <button class="detail-nav-button detail-prev" onclick="changeDetailSlide('book', -1)"><i class="fas fa-chevron-left"></i></button> 
+                        <button class="detail-nav-button detail-next" onclick="changeDetailSlide('book', 1)"><i class="fas fa-chevron-right"></i></button> 
+                    </div> 
+                    <div class="w-full md:w-1/2 detail-slider-content-wrapper"> 
+                        <div id="book-content-0" class="detail-content active"> 
+                            <h4 class="text-xl font-semibold mb-3 text-amber-800">Phần I: Văn Khấn Thờ Tổ Tiên</h4> 
+                            <p class="text-gray-700 mb-2">Các bài văn khấn dành cho việc thờ cúng tổ tiên trong gia đình, từ nghi thức hàng ngày đến các dịp đặc biệt.</p> 
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm"> 
+                                <li>Văn khấn cúng sáng tối hàng ngày</li> 
+                                <li>Văn khấn ngày mồng 1, 15 âm lịch</li> 
+                                <li>Văn khấn ngày giỗ tổ tiên</li> 
+                                <li>Văn khấn cúng rằm tháng 7</li> 
+                            </ul> 
+                        </div> 
+                        <div id="book-content-1" class="detail-content"> 
+                            <h4 class="text-xl font-semibold mb-3 text-amber-800">Phần II: Văn Khấn Các Ngày Lễ Tết</h4> 
+                            <p class="text-gray-700 mb-2">Tuyển tập văn khấn cho các dịp lễ tết quan trọng trong năm, giúp gia đình cúng lễ đúng nghi thức.</p> 
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm"> 
+                                <li>Văn khấn Tết Nguyên Đán</li> 
+                                <li>Văn khấn Tết Thanh Minh</li> 
+                                <li>Văn khấn Tết Trung Thu</li> 
+                                <li>Văn khấn cúng ông Công ông Táo</li> 
+                            </ul> 
+                        </div> 
+                        <div id="book-content-2" class="detail-content"> 
+                            <h4 class="text-xl font-semibold mb-3 text-amber-800">Phần III: Văn Khấn Các Sự Kiện Đặc Biệt</h4> 
+                            <p class="text-gray-700 mb-2">Các bài văn khấn cho những dịp đặc biệt trong đời sống gia đình như cưới hỏi, nhập trạch, khai trương...</p> 
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm"> 
+                                <li>Văn khấn lễ cưới hỏi</li> 
+                                <li>Văn khấn nhập trạch, dọn nhà mới</li> 
+                                <li>Văn khấn khai trương, mở hàng</li> 
+                                <li>Văn khấn thôi nôi, đầy tháng</li> 
+                            </ul> 
+                        </div> 
+                        <div id="book-content-3" class="detail-content"> 
+                            <h4 class="text-xl font-semibold mb-3 text-amber-800">Phần IV: Nghi Thức và Cách Cúng</h4> 
+                            <p class="text-gray-700 mb-2">Hướng dẫn chi tiết cách thức bày biện, nghi thức cúng lễ và những điều cần lưu ý khi thờ cúng.</p> 
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm"> 
+                                <li>Cách bày biện lễ vật đúng cách</li> 
+                                <li>Thứ tự nghi thức cúng lễ</li> 
+                                <li>Cách chọn ngày giờ tốt</li> 
+                                <li>Những điều kiêng kỵ cần tránh</li> 
+                            </ul> 
+                        </div> 
+                        <div id="book-content-4" class="detail-content"> 
+                            <h4 class="text-xl font-semibold mb-3 text-amber-800">Phần V: Phụ Lục và Tài Liệu Tham Khảo</h4> 
+                            <p class="text-gray-700 mb-2">Các tài liệu bổ sung giúp hiểu rõ hơn về truyền thống thờ cúng và ý nghĩa văn hóa tâm linh.</p> 
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm"> 
+                                <li>Lịch âm và cách đọc lịch</li> 
+                                <li>Ý nghĩa các loại hoa quả cúng</li> 
+                                <li>Cách trang trí bàn thờ gia tiên</li> 
+                                <li>Thuật ngữ và từ điển thờ cúng</li> 
+                            </ul> 
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="text-center mt-8"> 
+                    <a href="#order-now" class="btn-primary text-lg font-bold py-3 px-8 rounded-full">Đặt Mua Ngay</a> 
+                </div> 
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-amber-900">KHÁCH HÀNG ĐÁNH GIÁ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md border-l-4 border-amber-400">
+                    <div class="flex mb-4 text-yellow-400"> <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> </div>
+                    <p class="italic text-gray-700 mb-4">"Cuốn sách rất đầy đủ và chi tiết. Nhờ có sách này mà gia đình tôi có thể cúng lễ đúng nghi thức truyền thống. Các bài văn khấn rất hay và trang trọng."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/50x50/f59e0b/92400e?text=M" alt="Khách hàng" class="testimonial-img">
+                        <div>
+                            <p class="font-medium text-amber-900">Bà Nguyễn Thị Mai</p>
+                            <p class="text-sm text-gray-600">62 tuổi, Hà Nội</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md border-l-4 border-amber-400">
+                    <div class="flex mb-4 text-yellow-400"> <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> </div>
+                    <p class="italic text-gray-700 mb-4">"Sách viết rất dễ hiểu, phù hợp cho các gia đình trẻ như chúng tôi. Giờ đây tôi tự tin thờ cúng tổ tiên đúng cách mà không phải hỏi người lớn."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/50x50/f59e0b/92400e?text=B" alt="Khách hàng" class="testimonial-img">
+                        <div>
+                            <p class="font-medium text-amber-900">Anh Trần Văn Bình</p>
+                            <p class="text-sm text-gray-600">35 tuổi, TP.HCM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md border-l-4 border-amber-400">
+                    <div class="flex mb-4 text-yellow-400"> <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> </div>
+                    <p class="italic text-gray-700 mb-4">"Cuốn sách giá trị, nội dung phong phú. Tôi đã mua tặng cho các con để các cháu hiểu và duy trì truyền thống gia đình. Rất hài lòng!"</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/50x50/f59e0b/92400e?text=L" alt="Khách hàng" class="testimonial-img">
+                        <div>
+                            <p class="font-medium text-amber-900">Ông Lê Văn Long</p>
+                            <p class="text-sm text-gray-600">58 tuổi, Đà Nẵng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order-now" class="py-16 px-4 bg-gradient-section scroll-mt-20">
+        <div class="container mx-auto">
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-xl max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8 text-amber-900">ĐẶT MUA NGAY - NHẬN ƯU ĐÃI ĐẶC BIỆT</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div> 
+                        <h3 class="text-xl font-semibold mb-4 text-amber-800">Thông tin sản phẩm:</h3> 
+                        <div class="space-y-4 mb-6"> 
+                            <div class="flex items-center border-2 border-amber-500 p-4 rounded-lg bg-amber-50"> 
+                                <input type="radio" id="product" name="product" value="Tập văn cúng gia tiên - 199.000đ (Miễn phí vận chuyển)" class="mr-3 h-5 w-5 accent-amber-600 flex-shrink-0" checked> 
+                                <label for="product" class="flex-1 cursor-pointer"> 
+                                    <p class="font-medium">Tập Văn Cúng Gia Tiên</p> 
+                                    <p class="text-custom-red font-bold">199.000đ <span class="text-amber-600 ml-2 text-sm">🚚 Miễn phí vận chuyển</span></p> 
+                                    <p class="text-sm text-gray-600">(Giá gốc: 299.000đ - Tiết kiệm: 100.000đ)</p> 
+                                </label> 
+                            </div> 
+                        </div> 
+                        <h3 class="text-xl font-semibold mb-3 mt-6 text-amber-800">Cam kết chất lượng:</h3> 
+                        <ul class="space-y-2 text-gray-700 text-sm"> 
+                            <li class="flex items-start"><i class="fas fa-check-circle text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Sách in màu, bìa cứng, giấy cao cấp, nội dung chuẩn xác</span></li> 
+                            <li class="flex items-start"><i class="fas fa-truck text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Giao hàng nhanh toàn quốc (2-5 ngày)</span></li> 
+                            <li class="flex items-start"><i class="fas fa-hand-holding-usd text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Thanh toán khi nhận hàng (COD), được kiểm tra trước</span></li> 
+                            <li class="flex items-start"><i class="fas fa-sync-alt text-amber-600 mt-1 mr-2 flex-shrink-0"></i><span>Đổi trả miễn phí trong 7 ngày nếu có lỗi</span></li> 
+                        </ul> 
+                    </div>
+                    <div> 
+                        <h3 class="text-xl font-semibold mb-4 text-amber-800">Thông tin nhận hàng:</h3> 
+                        <form id="orderForm"> 
+                            <input type="hidden" id="orderDate" name="date"> 
+                            <div class="mb-4"> 
+                                <label for="fullName" class="block mb-1 font-medium text-sm">Họ và tên <span class="text-red-500">*</span></label> 
+                                <input type="text" id="fullName" name="name" placeholder="Nhập họ tên của bạn" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm" required> 
+                            </div> 
+                            <div class="mb-4"> 
+                                <label for="phone" class="block mb-1 font-medium text-sm">Số điện thoại <span class="text-red-500">*</span></label> 
+                                <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại nhận hàng" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm" required> 
+                            </div> 
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4"> 
+                                <div> 
+                                    <label for="city" class="block mb-1 font-medium text-sm">Tỉnh/Thành phố <span class="text-red-500">*</span></label> 
+                                    <select id="city" name="city" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white" required> 
+                                        <option value="">Chọn Tỉnh/Thành</option> 
+                                    </select> 
+                                </div> 
+                                <div> 
+                                    <label for="district" class="block mb-1 font-medium text-sm">Quận/Huyện <span class="text-red-500">*</span></label> 
+                                    <select id="district" name="district" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white" required> 
+                                        <option value="">Chọn Quận/Huyện</option> 
+                                    </select> 
+                                </div> 
+                                <div> 
+                                    <label for="ward" class="block mb-1 font-medium text-sm">Phường/Xã <span class="text-red-500">*</span></label> 
+                                    <select id="ward" name="ward" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm bg-white" required> 
+                                        <option value="">Chọn Phường/Xã</option> 
+                                    </select> 
+                                </div> 
+                            </div> 
+                            <div class="mb-4"> 
+                                <label for="addressDetail" class="block mb-1 font-medium text-sm">Địa chỉ chi tiết <span class="text-red-500">*</span></label> 
+                                <input type="text" id="addressDetail" name="addressDetail" placeholder="Số nhà, tên đường..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm" required> 
+                            </div> 
+                            <div class="mb-6"> 
+                                <label for="note" class="block mb-1 font-medium text-sm">Ghi chú (Tùy chọn)</label> 
+                                <textarea id="note" name="note" rows="2" placeholder="Ghi chú về giao hàng..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"></textarea> 
+                            </div> 
+                            <button type="submit" id="submitOrder" class="w-full btn-primary text-lg font-bold py-3 px-6 rounded-lg shadow-md flex items-center justify-center"> 
+                                <i class="fas fa-shopping-cart mr-2"></i> ĐẶT HÀNG NGAY 
+                            </button> 
+                        </form> 
+                    </div>
+                </div>
+                <div id="successMessage" class="mt-6 p-4 bg-green-100 border border-green-400 text-green-800 rounded-lg hidden success-animation"> 
+                    <h3 class="text-xl font-bold mb-2"><i class="fas fa-check-circle mr-2"></i>Đặt hàng thành công!</h3> 
+                    <p class="mb-2 text-sm">Cảm ơn bạn đã tin tưởng đặt mua "Tập văn cúng gia tiên". Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ để xác nhận đơn hàng.</p> 
+                    <p class="text-sm">Hotline hỗ trợ: <span class="font-bold">0972.048.409</span></p> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-amber-900 text-gray-300 py-10 px-4">
+        <div class="container mx-auto"> 
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8"> 
+                <div> 
+                    <h3 class="text-xl font-bold mb-4 text-white">LIÊN HỆ</h3> 
+                    <ul class="space-y-2 text-sm"> 
+                        <li class="flex items-start"><i class="fas fa-phone-alt mt-1 mr-3 text-yellow-300"></i><span>Hotline: <a href="tel:0972048409" class="hover:text-white">0972.048.409</a></span></li> 
+                        <li class="flex items-start"><i class="fas fa-envelope mt-1 mr-3 text-yellow-300"></i><span>Email: <a href="mailto:info@tapvancung.vn" class="hover:text-white">info@tapvancung.vn</a></span></li> 
+                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-300"></i><span>Địa chỉ: 123 Đường Truyền Thống, Q.1, TP.HCM</span></li> 
+                        <li class="flex items-start"><i class="fas fa-clock mt-1 mr-3 text-yellow-300"></i><span>Giờ làm việc: 8h00 - 20h00 (T2 - CN)</span></li> 
+                    </ul> 
+                </div> 
+                <div> 
+                    <h3 class="text-xl font-bold mb-4 text-white">CHÍNH SÁCH</h3> 
+                    <ul class="space-y-2 text-sm"> 
+                        <li><a href="#" class="hover:text-white">Chính sách vận chuyển miễn phí</a></li> 
+                        <li><a href="#" class="hover:text-white">Chính sách đổi trả sản phẩm</a></li> 
+                        <li><a href="#" class="hover:text-white">Thanh toán khi nhận hàng (COD)</a></li> 
+                        <li><a href="#" class="hover:text-white">Bảo mật thông tin khách hàng</a></li> 
+                    </ul> 
+                </div> 
+                <div> 
+                    <h3 class="text-xl font-bold mb-4 text-white">KẾT NỐI</h3> 
+                    <div class="flex space-x-4 mb-4"> 
+                        <a href="#" class="text-2xl hover:text-white"><i class="fab fa-facebook-square"></i></a> 
+                        <a href="#" class="text-2xl hover:text-white"><i class="fab fa-youtube"></i></a> 
+                        <a href="#" class="text-2xl hover:text-white"><i class="fab fa-zalo"></i></a> 
+                    </div> 
+                    <p class="text-sm mb-2">Nhận thông tin ưu đãi:</p> 
+                    <form class="flex"> 
+                        <input type="email" placeholder="Email của bạn" class="px-3 py-2 text-gray-800 rounded-l-md focus:outline-none w-full text-sm"> 
+                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-amber-900 px-4 py-2 rounded-r-md text-sm font-medium">Đăng ký</button> 
+                    </form> 
+                </div> 
+            </div> 
+            <div class="border-t border-amber-700 pt-6 text-center text-sm"> 
+                <p>&copy; 2024 Tập Văn Cúng Gia Tiên. Bảo lưu mọi quyền.</p> 
+                <p>Nội dung sách mang tính tham khảo, phù hợp với truyền thống văn hóa Việt Nam.</p> 
+            </div> 
+        </div>
+    </footer>
+
+    <div id="recent-order-popup">
+        <button class="close-btn" onclick="closePopup()">&times;</button>
+        <p><i class="fas fa-check-circle text-green-500 mr-1"></i> <span id="popup-customer-name" class="customer-name">Ai đó</span> ở <span id="popup-location">đâu đó</span> vừa đặt mua <span id="popup-product">Tập văn cúng gia tiên</span>.</p>
+        <span id="popup-time" class="time-ago">vài giây trước</span>
+    </div>
+
+    <script>
+        // --- Book Detail Slider Logic ---
+        const bookDetails = {
+            book: { currentIndex: 0, totalSlides: 5, images: [
+                "https://placehold.co/400x500/fbbf24/92400e?text=T%E1%BA%ADp+V%C4%83n+C%C3%BAng", 
+                "https://placehold.co/400x500/f59e0b/92400e?text=M%E1%BB%A5c+L%E1%BB%A5c", 
+                "https://placehold.co/400x500/d97706/92400e?text=V%C4%83n+Kh%E1%BA%A5n", 
+                "https://placehold.co/400x500/b45309/ffffff?text=Nghi+Th%E1%BB%A9c", 
+                "https://placehold.co/400x500/92400e/ffffff?text=Ph%E1%BB%A5+L%E1%BB%A5c"
+            ] }
+        };
+        
+        function showDetailSlide(bookId, index) { 
+            const details = bookDetails[bookId]; 
+            if (!details) return; 
+            details.currentIndex = (index + details.totalSlides) % details.totalSlides; 
+            const imgElement = document.getElementById(`${bookId}-image`); 
+            if(imgElement) { 
+                imgElement.src = details.images[details.currentIndex]; 
+                imgElement.alt = `Chi tiết tập văn cúng - ${details.currentIndex + 1}`; 
+            } 
+            const contentElements = document.querySelectorAll(`[id^="${bookId}-content-"]`); 
+            contentElements.forEach(el => el.classList.remove('active')); 
+            const currentContent = document.getElementById(`${bookId}-content-${details.currentIndex}`); 
+            if (currentContent) { 
+                currentContent.classList.add('active'); 
+            } 
+        }
+        
+        function changeDetailSlide(bookId, direction) { 
+            const details = bookDetails[bookId]; 
+            if (!details) return; 
+            showDetailSlide(bookId, details.currentIndex + direction); 
+        }
+
+        // --- Countdown Timer Logic ---
+        function startCountdown(duration, displayElement) {
+            let timer = duration, days, hours, minutes, seconds;
+            const interval = setInterval(function () {
+                days = parseInt(timer / (60 * 60 * 24), 10);
+                hours = parseInt((timer % (60 * 60 * 24)) / (60 * 60), 10);
+                minutes = parseInt((timer % (60 * 60)) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                days = days < 10 ? "0" + days : days;
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                displayElement.innerHTML = `<span>${days}</span>:<span>${hours}</span>:<span>${minutes}</span>:<span>${seconds}</span>`;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    displayElement.innerHTML = "<span class='text-custom-red'>ƯU ĐÃI ĐÃ KẾT THÚC!</span>";
+                }
+            }, 1000);
+        }
+
+        // --- Recent Order Popup Logic ---
+        const popupElement = document.getElementById('recent-order-popup');
+        const popupCustomerName = document.getElementById('popup-customer-name');
+        const popupLocation = document.getElementById('popup-location');
+        const popupProduct = document.getElementById('popup-product');
+        const popupTime = document.getElementById('popup-time');
+        let popupTimeout;
+
+        const customerNames = ["Bà Nguyễn T. Mai", "Ông Trần V. Bình", "Anh Lê H. Cường", "Chị Phạm T. Dung", "Bà Hoàng T. Em"];
+        const locations = ["Hà Nội", "TP. HCM", "Đà Nẵng", "Hải Phòng", "Cần Thơ", "Huế", "Nha Trang"];
+        const products = ["Tập văn cúng gia tiên"];
+
+        function showRecentOrderPopup() {
+             if (!popupElement) return;
+             if (popupTimeout) clearTimeout(popupTimeout);
+
+            const randomName = customerNames[Math.floor(Math.random() * customerNames.length)];
+            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+            const randomProduct = products[Math.floor(Math.random() * products.length)];
+            const randomMinutes = Math.floor(Math.random() * 15) + 1;
+
+            if(popupCustomerName) popupCustomerName.textContent = randomName;
+            if(popupLocation) popupLocation.textContent = randomLocation;
+            if(popupProduct) popupProduct.textContent = randomProduct;
+             if(popupTime) popupTime.textContent = `${randomMinutes} phút trước`;
+
+            popupElement.classList.add('show');
+
+            popupTimeout = setTimeout(() => {
+                popupElement.classList.remove('show');
+            }, 6000);
+        }
+
+         function closePopup() {
+             if (popupTimeout) clearTimeout(popupTimeout);
+             if (popupElement) popupElement.classList.remove('show');
+         }
+
+        // --- Address Data Fetching and Population ---
+        const citySelect = document.getElementById('city');
+        const districtSelect = document.getElementById('district');
+        const wardSelect = document.getElementById('ward');
+        let addressData = [];
+        
+        async function fetchAddressData() { 
+            const apiUrl = 'https://provinces.open-api.vn/api/?depth=3'; 
+            try { 
+                console.log("Fetching address data..."); 
+                const response = await fetch(apiUrl); 
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); 
+                addressData = await response.json(); 
+                console.log("Address data fetched successfully:", addressData.length, "cities"); 
+                renderCityOptions(addressData); 
+            } catch (error) { 
+                console.error('Error loading address data:', error); 
+                alert('Không thể tải dữ liệu địa chỉ. Vui lòng thử lại sau.'); 
+                fallbackToTextInputs(); 
+            } 
+        }
+        
+        function renderCityOptions(data) { 
+            if (!citySelect) return; 
+            citySelect.innerHTML = '<option value="">Chọn Tỉnh/Thành phố</option>'; 
+            data.sort((a, b) => a.name.localeCompare(b.name)); 
+            data.forEach(city => { 
+                const option = document.createElement('option'); 
+                option.value = city.code; 
+                option.textContent = city.name; 
+                citySelect.appendChild(option); 
+            }); 
+            resetSelect(districtSelect, 'Chọn Quận/Huyện'); 
+            resetSelect(wardSelect, 'Chọn Phường/Xã'); 
+        }
+        
+        function renderDistrictOptions(cityCode) { 
+            if (!districtSelect) return; 
+            resetSelect(districtSelect, 'Chọn Quận/Huyện'); 
+            resetSelect(wardSelect, 'Chọn Phường/Xã'); 
+            const city = addressData.find(c => c.code == cityCode); 
+            if (city && city.districts) { 
+                city.districts.sort((a, b) => a.name.localeCompare(b.name)); 
+                city.districts.forEach(district => { 
+                    const option = document.createElement('option'); 
+                    option.value = district.code; 
+                    option.textContent = district.name; 
+                    districtSelect.appendChild(option); 
+                }); 
+            } 
+        }
+        
+        function renderWardOptions(cityCode, districtCode) { 
+            if (!wardSelect) return; 
+            resetSelect(wardSelect, 'Chọn Phường/Xã'); 
+            const city = addressData.find(c => c.code == cityCode); 
+            const district = city?.districts.find(d => d.code == districtCode); 
+            if (district && district.wards) { 
+                district.wards.sort((a, b) => a.name.localeCompare(b.name)); 
+                district.wards.forEach(ward => { 
+                    const option = document.createElement('option'); 
+                    option.value = ward.code; 
+                    option.textContent = ward.name; 
+                    wardSelect.appendChild(option); 
+                }); 
+            } 
+        }
+        
+        function resetSelect(selectElement, defaultOptionText) { 
+            if (selectElement) { 
+                selectElement.innerHTML = `<option value="">${defaultOptionText}</option>`; 
+            } 
+        }
+        
+        if (citySelect) { 
+            citySelect.addEventListener('change', function() { 
+                renderDistrictOptions(this.value); 
+            }); 
+        }
+        
+        if (districtSelect) { 
+            districtSelect.addEventListener('change', function() { 
+                const selectedCityCode = citySelect.value; 
+                renderWardOptions(selectedCityCode, this.value); 
+            }); 
+        }
+        
+        function fallbackToTextInputs() { 
+            console.warn("Address dropdowns might not work correctly due to data loading failure."); 
+        }
+
+        // --- Form Submission Logic ---
+        async function handleOrderSubmit(event) { 
+            event.preventDefault(); 
+            const submitBtn = document.getElementById('submitOrder'); 
+            const originalBtnText = submitBtn.innerHTML; 
+            submitBtn.disabled = true; 
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ĐANG XỬ LÝ...'; 
+            
+            const formData = new FormData(event.target); 
+            const name = formData.get('name'); 
+            const phone = formData.get('phone'); 
+            const cityText = citySelect.options[citySelect.selectedIndex]?.text || formData.get('city'); 
+            const districtText = districtSelect.options[districtSelect.selectedIndex]?.text || formData.get('district'); 
+            const wardText = wardSelect.options[wardSelect.selectedIndex]?.text || formData.get('ward'); 
+            const addressDetail = formData.get('addressDetail'); 
+            const note = formData.get('note') || ''; 
+            const date = formData.get('date'); 
+            
+            const fullAddress = `${addressDetail}, ${wardText}, ${districtText}, ${cityText}`; 
+            
+            const apiData = { 
+                date: date, 
+                name: name, 
+                phone: phone, 
+                address: fullAddress, 
+                don_hang: "Tập văn cúng gia tiên - 199.000đ", 
+                Note: note 
+            }; 
+            
+            const sheetDbUrl = 'https://sheetdb.io/api/v1/su22l4ev0xct0'; 
+            
+            try { 
+                const response = await fetch(sheetDbUrl, { 
+                    method: 'POST', 
+                    headers: { 
+                        'Accept': 'application/json', 
+                        'Content-Type': 'application/json' 
+                    }, 
+                    body: JSON.stringify({ data: [apiData] }) 
+                }); 
+                
+                const result = await response.json(); 
+                
+                if (response.ok && result.created) { 
+                    const successMessage = document.getElementById('successMessage'); 
+                    if (successMessage) { 
+                        successMessage.classList.remove('hidden'); 
+                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+                    } 
+                    event.target.reset(); 
+                    resetSelect(citySelect, 'Chọn Tỉnh/Thành phố'); 
+                    resetSelect(districtSelect, 'Chọn Quận/Huyện'); 
+                    resetSelect(wardSelect, 'Chọn Phường/Xã'); 
+                    fetchAddressData(); 
+                } else { 
+                    console.error('SheetDB Error:', result); 
+                    alert(`Có lỗi xảy ra khi gửi đơn hàng: ${result.error || 'Vui lòng thử lại.'}`); 
+                } 
+            } catch (error) { 
+                console.error('Error submitting order:', error); 
+                alert('Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng và thử lại!'); 
+            } finally { 
+                submitBtn.disabled = false; 
+                submitBtn.innerHTML = originalBtnText; 
+            } 
+        }
+
+        // --- Initialization on DOMContentLoaded ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize slider
+            showDetailSlide('book', 0);
+
+            // Set current date for form
+            const now = new Date();
+            const dateStr = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+            const orderDateInput = document.getElementById('orderDate');
+            if(orderDateInput) orderDateInput.value = dateStr;
+
+            // Fetch address data
+            fetchAddressData();
+
+            // Attach form submit listener
+            const orderForm = document.getElementById('orderForm');
+            if (orderForm) orderForm.addEventListener('submit', handleOrderSubmit);
+
+            // Start Countdown Timer
+            const countdownDisplay = document.getElementById('countdown-timer');
+            if (countdownDisplay) {
+                const now = new Date();
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+                const secondsUntilEndOfDay = Math.round((endOfDay.getTime() - now.getTime()) / 1000);
+                if (secondsUntilEndOfDay > 0) {
+                    startCountdown(secondsUntilEndOfDay, countdownDisplay);
+                } else {
+                     countdownDisplay.innerHTML = "<span class='text-custom-red'>ƯU ĐÃI ĐÃ KẾT THÚC!</span>";
+                }
+            }
+
+             // Start Recent Order Popup
+             setTimeout(showRecentOrderPopup, 5000);
+             setInterval(showRecentOrderPopup, 18000 + Math.random() * 7000);
+        });
+    </script>
+</body>
+</html>
